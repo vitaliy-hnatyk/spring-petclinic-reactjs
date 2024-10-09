@@ -10,6 +10,7 @@ interface IVetsPageState {
 }
 
 export default class VetsPage extends React.Component<void, IVetsPageState> {
+  state: IVetsPageState;
   constructor() {
     super();
 

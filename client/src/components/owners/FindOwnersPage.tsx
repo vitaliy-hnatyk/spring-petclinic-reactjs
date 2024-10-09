@@ -22,7 +22,7 @@ const getFilterFromLocation = (location) => {
 
 export default class FindOwnersPage extends React.Component<IFindOwnersPageProps, IFindOwnersPageState> {
   context: IRouterContext;
-
+  state :IFindOwnersPageState; 
   static contextTypes = {
     router: React.PropTypes.object.isRequired
   };
@@ -63,6 +63,9 @@ export default class FindOwnersPage extends React.Component<IFindOwnersPageProps
     this.setState({
       filter: event.target.value as string
     });
+  }
+  setState(arg0: { filter: string; }) {
+    throw new Error('Method not implemented.');
   }
 
   /**

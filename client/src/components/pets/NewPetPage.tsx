@@ -28,7 +28,8 @@ const NEW_PET: IEditablePet = {
 };
 
 export default class NewPetPage extends React.Component<INewPetPageProps, INewPetPageState> {
-
+  props: INewPetPageProps;
+  state: INewPetPageState;
   componentDidMount() {
     createPetEditorModel(this.props.params.ownerId, Promise.resolve(NEW_PET))
       .then(model => this.setState(model));

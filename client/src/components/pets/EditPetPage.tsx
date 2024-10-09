@@ -23,7 +23,8 @@ interface IEditPetPageState {
 };
 
 export default class EditPetPage extends React.Component<IEditPetPageProps, IEditPetPageState> {
-
+  props: IEditPetPageProps;
+  state: IEditPetPageState;
   componentDidMount() {
     const { params } = this.props;
 

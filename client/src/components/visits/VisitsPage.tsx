@@ -25,8 +25,11 @@ interface IVisitsPageState {
 
 export default class VisitsPage extends React.Component<IVisitsPageProps, IVisitsPageState> {
 
- context: IRouterContext;
-
+  context: IRouterContext;
+  state: IVisitsPageState = {
+  };
+  props: IVisitsPageProps;
+ 
   static contextTypes = {
     router: React.PropTypes.object.isRequired
   };
@@ -91,7 +94,7 @@ export default class VisitsPage extends React.Component<IVisitsPageProps, IVisit
       return <h2>Loading...</h2>;
     }
 
-    const { owner, error, visit } = this.state;
+    const { owner, error, visit } = this.state;
     const petId = this.props.params.petId;
 
     const pet = owner.pets.find(candidate => candidate.id.toString() === petId);

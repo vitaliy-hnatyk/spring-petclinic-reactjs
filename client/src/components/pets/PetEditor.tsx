@@ -23,7 +23,8 @@ interface IPetEditorState {
 export default class PetEditor extends React.Component<IPetEditorProps, IPetEditorState> {
 
   context: IRouterContext;
-
+  state: IPetEditorState;
+  props: IPetEditorProps;
   static contextTypes = {
     router: React.PropTypes.object.isRequired
   };

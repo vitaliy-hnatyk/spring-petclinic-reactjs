@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import { IOwner, IPet } from '../../types';
 
-export default ({owner, pet}: { owner: IOwner, pet: IPet }) => (
+export default ({ owner, pet }: { owner: IOwner, pet: IPet }) => (
   <table className='table table-striped'>
     <thead>
       <tr>

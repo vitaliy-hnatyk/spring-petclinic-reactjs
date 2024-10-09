@@ -16,7 +16,8 @@ interface IOwnerPageState {
 }
 
 export default class OwnersPage extends React.Component<IOwnersPageProps, IOwnerPageState> {
-
+  state: IOwnerPageState; 
+  props: IOwnersPageProps;
   constructor() {
     super();
 

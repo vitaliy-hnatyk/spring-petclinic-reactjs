@@ -1,5 +1,6 @@
 const path = require('path');
 const webpack = require('webpack');
+const ESLintPlugin = require('eslint-webpack-plugin');
 
 const port = process.env.PORT || 3000;
 
@@ -18,10 +19,9 @@ module.exports = {
     path: path.join(__dirname, 'public/dist/'),
     filename: 'bundle.js',
     publicPath: '/dist/'
-    /* redbox-react/README.md */
-    // ,devtoolModuleFilenameTemplate: '/[absolute-resource-path]'
   },
   plugins: [
+    new ESLintPlugin(),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.DefinePlugin({
       __API_SERVER_URL__: JSON.stringify('http://localhost:9966/petclinic')
@@ -30,45 +30,56 @@ module.exports = {
   resolve: {
     extensions: ['', '.ts', '.tsx', '.js']
   },
+
   resolveLoader: {
-    'fallback': path.join(__dirname, 'node_modules')
+    modules: ['node_modules']
   },
+
   module: {
-    preLoaders: [
-      {
-        test: /\.tsx?$/,
-        loader: 'tslint',
-        include: path.join(__dirname, 'src')
-      }
-    ],
-    loaders: [
+
+
+    rules: [
       {
         test: /\.css$/,
-        loader: 'style!css'
+        use:  ['style-loader', 'css-loader'], 
       },
       {
         test: /\.less$/,
-        loader: 'style!css!less',
+      
+        use:  ['style-loader', 'css-loader'], 
         include: path.join(__dirname, 'src/styles')
       },
       {
         test: /\.(png|jpg)$/,
-        loader: 'url?limit=25000'
+        type: 'asset',
+        parser: {
+          dataUrlCondition: {
+            maxSize: 25000, // Limit of 25 KB for inline resources
+          },
+        },
       },
       {
         test: /\.(eot|svg|ttf|woff|woff2)$/,
-        loader: 'file?name=public/fonts/[name].[ext]'
+        loader: "url-loader",
+        options: { limit: 10000 },
+        type: 'asset/resource',
+        generator: {
+          filename: 'public/fonts/[name].[ext]', // Output to public/fonts/
+        },
       },
-
       {
-        test: /\.tsx?$/,
-        loader: 'babel!ts',
-        include: path.join(__dirname, 'src')
+        test: /\.tsx?$/,  // Test for both .ts and .tsx files
+         loader: 'ts-loader', // Use ts-loader to handle TypeScript files 
+        include: path.join(__dirname, 'src'),
+        exclude: /node_modules/, // Exclude the node_modules directory
+      },
+      {
+        test: /\.js$/, // Test for JavaScript files
+        loader:  'babel-loader', // Use babel-loader for transpiling JS
+        include: path.join(__dirname, 'src'),
+        exclude: /node_modules/, // Exclude the node_modules directory
       }
     ]
-  },
-  tslint: {
-    emitErrors: true,
-    failOnHint: true
   }
+ 
 };

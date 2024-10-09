@@ -13,6 +13,7 @@ interface IEditOwnerPageState {
 }
 
 export default class EditOwnerPage extends React.Component<IEditOwnerPageProps, IEditOwnerPageState> {
+  state
   componentDidMount() {
     const { params } = this.props;
 
@@ -22,6 +23,9 @@ export default class EditOwnerPage extends React.Component<IEditOwnerPageProps, 
         .then(response => response.json())
         .then(owner => this.setState({ owner }));
     }
+  }
+  setState(arg0: { owner: any; }): any {
+    throw new Error('Method not implemented.');
   }
   render() {
     const owner = this.state && this.state.owner;

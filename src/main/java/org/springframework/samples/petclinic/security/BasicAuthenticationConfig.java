@@ -9,9 +9,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.crypto.factory.PasswordEncoderFactories;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
@@ -26,13 +23,12 @@ public class BasicAuthenticationConfig  {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         // @formatter:off
         http
-            .authorizeHttpRequests((authz) -> authz
-                .anyRequest().authenticated()
+                .authorizeHttpRequests((authz) -> authz
+                                .anyRequest().authenticated()
                 )
-                .httpBasic()
-                    .and()
-                .csrf()
-                    .disable();
+                .httpBasic(withDefaults())
+                .csrf(csrf -> csrf
+                        .disable());
         // @formatter:on
         return http.build();
     }
